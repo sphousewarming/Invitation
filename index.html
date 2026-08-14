@@ -2412,12 +2412,12 @@ object-fit:contain!important;
       src="https://docs.google.com/forms/d/e/1FAIpQLSddgYGxwvNLxWdEEzY5LvwE1wz5B9pdO2VV-pGH1kV8gemX6A/viewform?embedded=true"
       title="Housewarming RSVP Google Form"
       width="100%"
-      height="900"
+      height="1080"
       frameborder="0"
       marginheight="0"
       marginwidth="0"
       loading="eager"
-      style="display:block;width:100%;min-height:900px;border:0;background:#fff;">
+      style="display:block;width:100%;min-height:1080px;border:0;background:#fff;">
       Loading RSVP form…
     </iframe>
   </div>
@@ -2674,12 +2674,14 @@ white-space:nowrap!important;
   let loadCount = 0;
   let pageReady = false;
 
-  // Ignore the first iframe load. Any later Google Form navigation is typically
-  // the submit/confirmation response. Bring the user back to the RSVP top so
-  // the confirmation is visible instead of leaving them in blank iframe space.
   frame.addEventListener('load', function () {
     loadCount += 1;
     if (!pageReady || loadCount <= 1) return;
+
+    // After Google Form submission, its confirmation page is much shorter.
+    // Shrink the iframe so mobile users do not see a large blank area.
+    frame.style.setProperty('height', '430px', 'important');
+    frame.style.setProperty('min-height', '430px', 'important');
 
     setTimeout(function () {
       card.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2720,8 +2722,8 @@ white-space:nowrap!important;
     line-height:1.4 !important;
   }
   #housewarmingRsvpFrame{
-    min-height:900px !important;
-    height:900px !important;
+    min-height:1080px !important;
+    height:1080px !important;
   }
 }
 </style>
